@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".Activities.NewReportActivity">
+
+    <TextView
+        android:id="@+id/reportingOn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:text="@string/reporting_on"
+        android:textColor="@color/greenColor1"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reportingOn"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="casual"
+        android:text="@string/photo"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/photo"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="casual"
+        android:text="@string/description"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="casual"
+        android:text="@string/select_all_the_categories_that_apply_to_your_report"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/characteristics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categories"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="casual"
+        android:text="@string/other_characteristics"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addReportBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/characteristics"
+        android:backgroundTint="@color/white"
+        android:layout_marginTop="60sp"
+        android:layout_marginStart="130dp"
+        android:text="@string/report_it"
+        android:textColor="@color/greenColor2"
+        />
+
+</RelativeLayout>
