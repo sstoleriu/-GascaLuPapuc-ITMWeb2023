@@ -1,0 +1,36 @@
+<div class="h-full w-full overflow-auto">
+    <div class="grid grid-nogutter w-screen min-h-screen justify-content-center align-content-center overflow-y-auto">
+        <div class="col-6 md:col-4 xl:col-3 flex relative">
+            <div class="cerc sky-bg absolute" style="margin-left: -40px; margin-top: -5vh"></div>
+            <div class="cerc sky-bg absolute" style="margin-right: 80px; margin-bottom: -10vh; bottom: 0; right: 0"></div>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="login-form" class="border-round-md w-full grow">
+                <div class="formgrid grid p-5">
+                    <div class="field col-12">
+                        <h2 class="my-1 text-center text-white">Login form</h2>
+                    </div>
+                    <div class="field col-12 mt-3">
+                        <span class="p-float-label">
+                            <input pInputText formControlName="email" id="email" name="email" class="text-0 w-full bg-bluegray-700 border-transparent" required/>
+                            <label htmlFor="email" class="text-0">Email</label>
+                        </span>
+                        <small *ngIf="email?.invalid && submited" class="text-red-400">Trebuie să introduceți un email valid</small>
+                    </div>
+                    <div class="field col-12 mt-3">
+                        <span class="p-float-label">
+                            <p-password formControlName="password" id="email" id="password" name="password" [feedback]="false" [toggleMask]="true" [showClear]="true" styleClass="w-full" inputStyleClass="w-full text-0 bg-bluegray-700 border-transparent" required></p-password>
+                            <label htmlFor="password" class="text-0">Password</label>
+                        </span>
+                        <small *ngIf="password?.invalid && submited" class="text-red-400">Trebuie să introduceți o parolă</small>
+                    </div>
+                    <div class="field col-12 mt-3 mb-0">
+                        <button pButton class="w-full text-900 bg-white hover:bg-blue-600 hover:text-0 justify-content-center border-transparent">Autentificare</button>
+                    </div>
+                    <div class="field col-12 mb-0">
+                        <p-messages [enableService]="true"></p-messages>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

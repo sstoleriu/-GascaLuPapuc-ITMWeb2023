@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-green: #00D77B;
+    --primary-blue: #006EE9;
+}
+
+.custom-bg-primary-green {
+    background-color: var(--primary-green);
+}
+
+.custom-bg-primary-blue {
+    background-color: var(--primary-blue);
+}

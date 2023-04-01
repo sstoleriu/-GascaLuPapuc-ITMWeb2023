@@ -1,0 +1,33 @@
+#login-form {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.cerc {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-image: url('src\assets\img\nature-cloud-bg.jpg');
+    background-position: center;
+}
+
+.appear {
+    animation: appearAnimation 4s ease;
+}
+
+@keyframes appearAnimation {
+    0%      { opacity: 0; }
+    100%    { opacity: 1; }
+}
+
+.grow {
+    animation: growAnimation 1s ease-in-out;
+}
+
+@keyframes growAnimation {
+    0%      { transform: scale(0); }
+    80%     { transform: scale(1.1); }
+    100%    { transform: scale(1); }
+}
