@@ -1,0 +1,32 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auth-ecoshare
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: AUTH-SERVICE
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+secret:
+  key: "576D5A7134743777217A25432A462D4A614E635266556A586E3272357538782F"
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
