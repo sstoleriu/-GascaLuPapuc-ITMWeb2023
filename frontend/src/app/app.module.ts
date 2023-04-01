@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Custom
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +17,7 @@ import { AnimateModule } from 'primeng/animate';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { MessagesModule } from 'primeng/messages';
+import { AuthInterceptor } from './interceptors/AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import { MessagesModule } from 'primeng/messages';
     LoginComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -32,7 +36,9 @@ import { MessagesModule } from 'primeng/messages';
     PasswordModule,
     MessagesModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
