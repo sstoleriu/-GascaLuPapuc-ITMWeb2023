@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activities.LogInActivity">
+
+  <TextView
+      android:id="@+id/sign_in"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="150dp"
+      android:fontFamily="casual"
+      android:gravity="center"
+      android:scaleType="fitCenter"
+      android:text="@string/log_in"
+      android:textColor="@color/greenColor1"
+      android:textSize="35sp"
+      android:textStyle="bold" />
+
+  <EditText
+      android:id="@+id/username"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/sign_in"
+      android:layout_marginStart="10sp"
+      android:layout_marginTop="40sp"
+      android:background="#80ffffff"
+      android:drawableStart="@drawable/ic_baseline_person_outline_24"
+      android:drawablePadding="20sp"
+      android:hint="@string/email"
+      android:padding="20sp"
+      android:scaleType="fitCenter"
+      android:textColor="@color/greenColor2"
+      android:textColorHint="@color/greenColor2" />
+
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:scaleType="fitCenter"
+      android:id="@+id/password"
+      android:layout_marginStart="10sp"
+      android:layout_marginTop="40sp"
+      android:layout_below="@id/username"
+      android:background="#80ffffff"
+      android:hint="@string/password"
+      android:textColor="@color/greenColor2"
+      android:textColorHint="@color/greenColor2"
+      android:padding="20sp"
+      android:drawableStart="@drawable/ic_baseline_password_24"
+      android:drawablePadding="20sp"
+      android:inputType="textPassword"/>
+
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/loginBtn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/password"
+      android:scaleType="fitCenter"
+      android:backgroundTint="@color/white"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="50sp"
+      android:text="@string/log_in"
+      app:cornerRadius="5dp"
+      android:textColor="@color/greenColor2"
+      />
+
+  <ProgressBar
+      android:id="@+id/idLoadingPB"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/loginBtn"
+      android:layout_marginStart="184sp"
+      android:layout_marginTop="0sp"
+      android:layout_marginEnd="10sp"
+      android:layout_marginBottom="10sp"
+      android:visibility="gone"
+      />
+
+
+  </RelativeLayout>

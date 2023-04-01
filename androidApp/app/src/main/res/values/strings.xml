@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">EcoShare</string>
+    <string name="welcome_to_ecoshare">Welcome to EcoShare !</string>
+    <string name="log_in">LOG IN</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="you_do_not_have_an_account">You do not have an account?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="last_name">Last Name </string>
+    <string name="phone_number">Phone Number</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="my_reports">MY REPORTS</string>
+    <string name="select_all_the_categories_that_apply_to_your_report">Select all the categories that apply to your report:</string>
+    <string name="description">Description:</string>
+    <string name="photo">Photo:</string>
+    <string name="other_characteristics">Other characteristics:</string>
+    <string name="report_it">Report IT!</string>
+    <string name="log_out">Log Out</string>
+    <string name="welcome_to_ecoshar">WELCOME TO ECOSHARE !</string>
+    <string name="reporting_on">REPORTING ON</string>
+</resources>

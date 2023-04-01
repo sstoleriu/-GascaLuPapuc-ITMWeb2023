@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ecoshare"
+    tools:context=".Activities.FirstPageActivity">
+
+    <TextView
+        android:id="@+id/ecoShare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="#80000000"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:fontFamily="casual"
+        android:text="@string/welcome_to_ecoshar"
+        android:textColor="@color/greenColor1"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ecoShare"
+        android:scaleType="fitCenter"
+        android:backgroundTint="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50sp"
+        android:text="@string/log_in"
+        app:cornerRadius="5dp"
+        android:textColor="@color/greenColor2"
+         />
+
+    <TextView
+        android:id="@+id/noAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginBtn"
+        android:layout_marginTop="100dp"
+        android:fontFamily="casual"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="#80000000"
+
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:text="@string/you_do_not_have_an_account"
+        android:textSize="20sp"
+        app:cornerRadius="5dp"
+        android:textColor="@color/greenColor1"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/singUpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/noAccount"
+        android:scaleType="fitCenter"
+        android:backgroundTint="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20sp"
+        android:text="@string/sign_up"
+        android:textColor="@color/greenColor2"
+        />
+
+</RelativeLayout>
