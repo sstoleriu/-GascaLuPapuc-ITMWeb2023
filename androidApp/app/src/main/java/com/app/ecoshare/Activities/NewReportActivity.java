@@ -1,15 +1,26 @@
 package com.app.ecoshare.Activities;
 
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+
+import android.provider.MediaStore;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.ecoshare.R;
 import com.google.android.material.button.MaterialButton;
@@ -20,8 +31,11 @@ import java.util.Collections;
 public class NewReportActivity extends AppCompatActivity {
 
     MaterialButton myReportsBtn, takePhotoBtn;
-    private static final int CAMERA_REQUEST = 1888;
     private ImageView photoView;
+    Uri imageUri;
+    private static final int PERMISSION_CODE = 1234;
+    private static final int CAPTURE_CODE = 1001;
+
     RadioButton anonBtn;
     String isAnon;
     TextView categoriesSelected;
@@ -40,10 +54,27 @@ public class NewReportActivity extends AppCompatActivity {
         categoriesSelected = findViewById(R.id.categoriesSelected);
         selectedCategory = new boolean[categoriesArray.length];
 
-        takePhotoBtn.setOnClickListener(v -> {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        takePhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                            PackageManager.PERMISSION_DENIED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_DENIED){
+                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permission, PERMISSION_CODE);
+                    }
+
+                    else{
+                        openCamera();
+                    }
+                }
+                else {
+                    openCamera();
+                }
+            }
         });
+
 
 
         categoriesSelected.setOnClickListener(view -> {
@@ -118,16 +149,37 @@ public class NewReportActivity extends AppCompatActivity {
         });
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            photoView.setImageBitmap(photo);
-        }
+    private void openCamera(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, "new image");
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "From the camera");
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        camera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(camera, CAPTURE_CODE);
     }
 
     @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case PERMISSION_CODE:
+                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    openCamera();
+                }
+                else{
+                    Toast.makeText(this, "Permission Denied!", Toast.LENGTH_LONG).show();
+
+                }
+        }
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == RESULT_OK){
+            photoView.setImageURI(imageUri);
+
+        }
     }
 }

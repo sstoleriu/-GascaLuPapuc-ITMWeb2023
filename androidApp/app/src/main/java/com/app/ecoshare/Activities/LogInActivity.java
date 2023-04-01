@@ -87,8 +87,4 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
 }

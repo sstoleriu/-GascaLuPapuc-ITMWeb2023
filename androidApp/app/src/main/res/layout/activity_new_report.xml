@@ -27,7 +27,7 @@
         android:id="@+id/reportingOn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="casual"
         android:gravity="center"
         android:scaleType="fitCenter"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:layout_marginTop="10sp"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="110dp"
         android:textColor="@color/greenColor2"
         android:text="@string/take_photo" />
 
@@ -68,8 +68,9 @@
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
         android:foregroundGravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="180dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="70dp"
         android:src="@drawable/ic_baseline_insert_photo_24"
         android:layout_width="wrap_content" />
 
@@ -77,9 +78,9 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/photo"
+        android:layout_below="@id/photoView"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="casual"
         android:text="@string/description"
         android:textColor="@color/black"
