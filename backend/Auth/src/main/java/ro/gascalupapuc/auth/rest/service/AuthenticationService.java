@@ -36,12 +36,17 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .createLocalDateTime(LocalDateTime.now())
                 .role(Role.USER)
+                .phoneNumber(request.getPhoneNumber())
                 .build();
 
-        userRepository.save(user);
+       var us = userRepository.save(user);
 
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("Authorities", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        extraClaims.put("firstname",user.getFirstName());
+        extraClaims.put("lastname",user.getLastName());
+        extraClaims.put("phonenumber",user.getPhoneNumber());
+        extraClaims.put("id",us.getId());
 
         var jwtToken = jwtService.generateToken(extraClaims, user);
         return AuthenticationResponse.builder()
@@ -60,6 +65,12 @@ public class AuthenticationService {
 
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("Authorities", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        extraClaims.put("firstname",user.getFirstName());
+        extraClaims.put("lastname",user.getLastName());
+        extraClaims.put("phonenumber",user.getPhoneNumber());
+
+        var us = userRepository.save(user);
+        extraClaims.put("id",us.getId());
 
         var jwtToken = jwtService.generateToken(extraClaims, user);
         return AuthenticationResponse.builder()

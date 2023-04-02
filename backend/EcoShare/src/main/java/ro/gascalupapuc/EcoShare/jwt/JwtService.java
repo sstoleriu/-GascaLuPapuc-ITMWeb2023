@@ -7,6 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import ro.gascalupapuc.EcoShare.model.Role;
+import ro.gascalupapuc.EcoShare.model.dto.UserDTO;
 
 import java.security.Key;
 import java.util.Collection;
@@ -29,6 +31,22 @@ public class JwtService {
         Claims claims = extractAllClaims(token);
 
         return  List.of(new SimpleGrantedAuthority(String.valueOf(claims.get("Authorities")).replace("[","").replace("]","")));
+    }
+
+    public UserDTO extractUserDTO(String token){
+        Claims claims = extractAllClaims(token);
+        return UserDTO.builder()
+                .id(Integer.valueOf(String.valueOf( claims.get("id"))))
+                .firstName(String.valueOf(claims.get("firstname")))
+                .lastName(String.valueOf(claims.get("lastname")))
+                .email(String.valueOf(claims.getSubject()))
+                .phoneNumber(String.valueOf(claims.get("phonenumber")))
+                .role(Role.valueOf(
+                        String.valueOf(
+                                claims.get("Authorities")).replace("[","").replace("]","")
+                        )
+                )
+                .build();
     }
 
     //we extract one claim using the token and Function class that return a T and accept one parameter of type Claims

@@ -11,7 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ro.gascalupapuc.EcoShare.jwt.JwtService;
+import ro.gascalupapuc.EcoShare.model.Role;
+import ro.gascalupapuc.EcoShare.model.dto.UserDTO;
+import ro.gascalupapuc.EcoShare.rest.repository.UserRepository;
+import ro.gascalupapuc.EcoShare.rest.service.OperatorService;
+import ro.gascalupapuc.EcoShare.rest.service.UserService;
 
 import java.io.IOException;
 
@@ -20,6 +24,12 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+
+    private final UserService userService;
+
+    private final OperatorService operatorService;
+
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(
@@ -57,6 +67,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+
+                if(userRepository.findByEmail(userEmail).isEmpty()){
+                    UserDTO userDTO = jwtService.extractUserDTO(jwtToken);
+                    if(!userDTO.getRole().equals(Role.OPERATOR)){
+                        userService.createUser(userDTO);
+                    }
+
+                    if(userDTO.getRole().equals(Role.OPERATOR)){
+                        operatorService.createUser(userDTO);
+                    }
+                }
             }
             filterChain.doFilter(request,response);
         }

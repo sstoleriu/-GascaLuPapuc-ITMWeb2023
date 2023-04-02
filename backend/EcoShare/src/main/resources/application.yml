@@ -1,22 +1,23 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/auth-ecoshare
+    url: jdbc:postgresql://localhost:5432/ecoshare
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
   application:
-    name: AUTH-SERVICE
+    name: ECOSHARE-SERVICE
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        enable_lazy_load_no_trans: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 

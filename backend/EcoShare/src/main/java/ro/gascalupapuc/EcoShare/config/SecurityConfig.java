@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .configurationSource(corsConfigurationSource)
                 .and()
                 .authorizeHttpRequests()
+                .requestMatchers("/api/v1/admin/**")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
