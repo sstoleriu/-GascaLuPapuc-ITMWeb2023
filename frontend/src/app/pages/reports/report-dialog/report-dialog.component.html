@@ -8,24 +8,22 @@
             Submit date
             <input pInputText [value]="report?.createDate" [disabled]="true" class="w-full"/>
         </div>
+        
         <div class="field col-6">
             Resolved date
             <input pInputText [value]="report?.resolveDate" [disabled]="true" class="w-full"/>
         </div>
         <div class="field col-12">
             Categories
-            <input pInputText [value]="report?.listCategoryOfObject" [disabled]="true" class="w-full"/>
+            <input pInputText [value]="report?.characteristicsDTO" [disabled]="true" class="w-full"/>
         </div>
-        <div class="field col-12">
-            Characteristics
-            <input pInputText [value]="report?.listOfCharacteristics" [disabled]="true" class="w-full"/>
+
+        <div>
+            <p-image src="data:image/png;base64, {{report?.base64ph}}" alt="Image" width="100" [preview]="true"></p-image> 
         </div>
-        <div class="field col-12">
-            Harta:
-            
-        </div>
+       
         <div class="field col-12 flex m-0 justify-content-end">
-            <button pButton icon="pi pi-check" class="p-button-success justify-content-center">Marchează ca rezolvat</button>
+            <button pButton icon="pi pi-check" class="p-button-success" (click)="resolve()">Mark solved</button>
         </div>
     </div>
 </form>

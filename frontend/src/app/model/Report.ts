@@ -1,11 +1,12 @@
 export interface Report {
     id: number
-    listCategoryOfObject: string[]
+    characteristicsDTO: any
     description: string
-    listOfCharacteristics: string[]
+    createByUserDTO: any
     createDate: string
     resolveDate: string
     isResolve: boolean
     isAnon: boolean
     base64ph: string
+    category: string[]
 }

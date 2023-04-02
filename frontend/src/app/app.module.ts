@@ -30,14 +30,17 @@ import { ReportDialogComponent } from './pages/reports/report-dialog/report-dial
 import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import {GMapModule} from 'primeng/gmap';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { OperatorsComponent } from './pages/operators/operators.component'
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ReportsComponent,
-    ReportDialogComponent
+    ReportDialogComponent,
+    OperatorsComponent
   ],
   imports: [
     HttpClientModule,
@@ -60,7 +63,8 @@ import {GMapModule} from 'primeng/gmap';
     ToastModule,
     DynamicDialogModule,
     InputTextareaModule,
-    GMapModule
+    GoogleMapsModule,
+    ImageModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

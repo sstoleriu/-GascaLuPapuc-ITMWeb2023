@@ -7,7 +7,7 @@ import { ROLE } from './enums/ROLE';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'profile', component: LoginComponent},
-  {path: 'reports', component: ReportsComponent, canActivate: [authGuard], data: {authorized_roles: [ROLE.USER]}},
+  {path: 'reports', component: ReportsComponent, canActivate: [authGuard], data: {authorized_roles: [ROLE.ADMIN, ROLE.OPERATOR]}},
   {path: '**', redirectTo: 'reports'}
 ];
 

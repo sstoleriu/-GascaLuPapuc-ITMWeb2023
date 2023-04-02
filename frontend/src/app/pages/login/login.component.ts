@@ -36,6 +36,7 @@ export class LoginComponent {
           localStorage.setItem("JWT", data.token);
           this.userService.loadJWT();
           this.router.navigate(['reports'])
+          //this.userService.secondCall()
         },
         error: (e) => this.messageService.add({severity: 'error', summary: e}),
         complete: () => console.info('login complete') 

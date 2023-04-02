@@ -10,19 +10,17 @@ export const authGuard = (next: ActivatedRouteSnapshot,
     const userService = inject(UserService);
     const router = inject(Router);
 
-    //console.log("ROLES:", next.data)
+    console.log("ROLES:", next.data)
     if (next.data != undefined) {
         var authorized_roles = next.data['authorized_roles'];
 
         for(var i = 0; i < authorized_roles.length; i++) {
             if(userService.hasRole(authorized_roles[i])) {
+                console.log(authorized_roles[i], userService.hasRole(authorized_roles[i]))
                 return true;
             }
         }
     }
-        
-
-
 
     //return router.parseUrl('/login');
     return router.navigate(['/login'], { queryParams: { returnUrl: state.url }});

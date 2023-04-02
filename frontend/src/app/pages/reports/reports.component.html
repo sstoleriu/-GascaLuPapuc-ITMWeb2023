@@ -1,7 +1,7 @@
 <div class="grid grid-nogutter">
     <div class="col-12 p-2 px-3 flex align-items-center bg-white header-shadow">
         <span class="pi pi-image text-white" style="font-size: 2.5rem"></span>
-        <span class="px-1">EcoShare</span>
+        <h2 class="px-1 my-0" style="color: #3be93e; font-size: 2rem">EcoShare</h2>
         <div class="flex flex-grow-1">
 
         </div>
@@ -16,52 +16,43 @@
                 <h1 class="m-0 text-white">My Reports</h1>
             </div>
             <div class="col-12">
-                <p-gmap [options]="options" [style]="{'width':'100%','height':'320px'}" ></p-gmap>
-                                
+                <div id="map">
+
+                </div>
             </div>
             <div class="col-12 p-1 mt-2 bg-white border-round">
                 <p-tabMenu [model]="tabMenuItems" [activeItem]="activeItem"></p-tabMenu>
-                <p-table [value]="raports" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table [value]="raports" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="4">
                     <ng-template pTemplate="header" >
                         <tr>
                             <th>Type</th>
-                            <th>Description</th>
+                            <th>Impact</th>
+                            <th>Submit time</th>
                             <th>Category</th>
+                            <th>Description</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
-                        <tr>
-                            <th>
-                                
-                            </th>
-                            <th>
-                                miau
-                            </th>
-                            <th>
-                                <p-columnFilter type="text" field="country.name"></p-columnFilter>
-                            </th>
-                            <th>
-                                <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                            <ng-template let-option pTemplate="item">
-                                                <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
-                                            </ng-template>
-                                        </p-dropdown>
-                                    </ng-template>
-                                </p-columnFilter>
-                            </th>
-                            <th></th>
-                        </tr>
+
                         
                     </ng-template>
                     <ng-template pTemplate="body" let-raport>
                         <tr>
                             <td>
-                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" styleClass="mr-2" shape="circle"></p-avatar></td>
+                                <p-avatar *ngIf="!raport.isAnon" image="assets/img/common_user.png" styleClass="mr-2" shape="circle"></p-avatar>
+                                <p-avatar *ngIf="raport.isAnon" image="assets/img/incognito.png" styleClass="mr-2" shape="circle"></p-avatar>
+                            </td>
+                            <td>
+                                {{raport?.characteristicsDTO?.impact}}
+                            </td>
+                            <td>
+                                {{raport?.createDate}}
+                            </td>
+                            <td>
+                                {{raport.category}}
+                            </td>
                             <td>{{ raport.description }}</td>
-                            <td>{{ raport.listCategoryOfObject }}</td>
-                            <td><p-tag>{{raport.isResolve}}</p-tag></td>
+                            <td><p-tag >{{ getName(raport.isResolve) }}</p-tag></td>
                             <td>
                                 <p-toast></p-toast>
                                 <p-button icon="pi pi-eye" (click)="openReportDialog(raport)" label="View"></p-button>

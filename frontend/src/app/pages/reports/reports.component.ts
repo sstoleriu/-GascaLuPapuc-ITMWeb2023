@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { ReportDialogComponent } from './report-dialog/report-dialog.component';
 import { ReportService } from 'src/app/services/report.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -13,23 +14,30 @@ import { UserService } from 'src/app/services/user.service';
   providers: [DialogService, MessageService]
 })
 export class ReportsComponent {
-  constructor(public dialogService: DialogService, public messageService: MessageService, private reportService: ReportService, private userService: UserService){}
+  constructor(public dialogService: DialogService, public messageService: MessageService, private reportService: ReportService, private userService: UserService, private router: Router){}
   items = [
       {
           label: 'My Reports',
           icon: 'pi pi-fw pi-envelope',
+          routerLink: ['/reports']
 
       },
       {
         label: 'Manage operators',
         icon: 'pi pi-fw pi-users',
+        routerLink: ['/operators']
       },
       {
         label: 'LogOut',
         icon: 'pi pi-fw pi-sign-out',
-        class: 'text-red'
+        command: () => this.logout()
       }
   ];
+
+  logout() {
+    this.userService.logout()
+    this.router.navigate(['/login'])
+  }
 
   tabMenuItems =  [
     {
@@ -69,22 +77,21 @@ export class ReportsComponent {
   ]
 
   statuses = [
-    { label: 'New', value: 'new' },
-    { label: 'Processed', value: 'processed' },
-    { label: 'Spam', value: 'spam' }
+    { label: "New", value: "New" },
+    { label: "Processed", value: "Processed" }
   ];
 
   value = '';
 
   ref?: DynamicDialogRef;
 
-  getSeverity(status: boolean) {
+  getName(status: boolean) {
     switch (status) {
         case false:
-            return 'danger';
+            return "New";
 
         case true:
-            return 'success';
+            return "Processed";
     }
 
     return 'success';
@@ -106,6 +113,7 @@ export class ReportsComponent {
       error: (e) => console.error(e),
       complete: () => console.info('login complete') 
     });
+
   }
 
   openReportDialog(raport: Report) {

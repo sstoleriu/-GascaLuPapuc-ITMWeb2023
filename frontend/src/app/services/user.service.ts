@@ -51,7 +51,14 @@ export class UserService {
   }
 
   hasRole(role: string) {
+    //console.log("hasRole", role, this.jwtPayload?.roles?.indexOf(role))
+    if(this.jwtPayload?.roles?.indexOf(role) == undefined)
+      return false
     return this.jwtPayload?.roles?.indexOf(role) != -1;
+  }
+
+  secondCall() {
+
   }
 
   b64_to_utf8(token: string) {
