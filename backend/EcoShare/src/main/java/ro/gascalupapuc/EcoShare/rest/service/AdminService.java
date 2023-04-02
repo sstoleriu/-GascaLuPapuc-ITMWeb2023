@@ -12,6 +12,8 @@ import ro.gascalupapuc.EcoShare.rest.repository.OperatorRepository;
 import ro.gascalupapuc.EcoShare.rest.repository.UserRepository;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +54,11 @@ public class AdminService {
             userRepository.save(user);
             return UserService.mapEntityToResponseDTO(user);
         }
+    }
 
-
+    public List<ResponseUserDTO> getAllOperators() {
+        return operatorRepository.findAll().stream()
+                .map(o ->OperatorService.mapEntityToResponseDTO(o))
+                .collect(Collectors.toList());
     }
 }

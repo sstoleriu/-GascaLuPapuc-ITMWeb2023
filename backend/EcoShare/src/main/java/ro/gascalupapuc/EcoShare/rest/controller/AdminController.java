@@ -7,6 +7,8 @@ import ro.gascalupapuc.EcoShare.model.dto.ResponseUserDTO;
 import ro.gascalupapuc.EcoShare.model.dto.UserDTO;
 import ro.gascalupapuc.EcoShare.rest.service.AdminService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
@@ -20,5 +22,10 @@ public class AdminController {
     ResponseEntity<ResponseUserDTO> createUser(@RequestParam String role,
                                                @RequestBody UserDTO userDTO){
        return ResponseEntity.ok(adminService.createUser(role, userDTO));
+    }
+
+    @GetMapping("admin/operators")
+    ResponseEntity<List<ResponseUserDTO>> getAllOperators(){
+        return ResponseEntity.ok(adminService.getAllOperators());
     }
 }
