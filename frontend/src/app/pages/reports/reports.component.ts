@@ -4,6 +4,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
 import { ReportDialogComponent } from './report-dialog/report-dialog.component';
 import { ReportService } from 'src/app/services/report.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-reports',
@@ -12,7 +13,7 @@ import { ReportService } from 'src/app/services/report.service';
   providers: [DialogService, MessageService]
 })
 export class ReportsComponent {
-  constructor(public dialogService: DialogService, public messageService: MessageService, private reportService: ReportService){}
+  constructor(public dialogService: DialogService, public messageService: MessageService, private reportService: ReportService, private userService: UserService){}
   items = [
       {
           label: 'My Reports',
@@ -22,7 +23,12 @@ export class ReportsComponent {
       {
         label: 'Manage operators',
         icon: 'pi pi-fw pi-users',
-    }
+      },
+      {
+        label: 'LogOut',
+        icon: 'pi pi-fw pi-sign-out',
+        class: 'text-red'
+      }
   ];
 
   tabMenuItems =  [
@@ -84,8 +90,15 @@ export class ReportsComponent {
     return 'success';
   }
 
+  options = {
+    center: {lat: 36.890257, lng: 30.707417},
+    zoom: 12
+  };
+
   ngOnInit() {
-    this.reportService.getReports().subscribe({
+    var userId = Number(this.userService.jwtPayload?.id);
+
+    this.reportService.getReports(userId).subscribe({
       next: (data: Report[]) => {
         console.log(data)
         this.raports = data;

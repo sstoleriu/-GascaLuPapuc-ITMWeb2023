@@ -15,7 +15,6 @@ export class ReportDialogComponent {
     this.report = config.data
   }
 
-
   formGroup = new FormGroup({})
 
   onSubmit() {}

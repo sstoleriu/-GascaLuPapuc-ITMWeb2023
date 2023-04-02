@@ -10,10 +10,9 @@ export class ReportService {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.getReports()
   }
 
-  getReports() {
-    return this.http.get<Report[]>('http://192.168.1.149:8082/api/v1/report/allReports/202');
+  getReports(id: number) {
+    return this.http.get<Report[]>('http://192.168.1.149:8082/api/v1/report/allReports/user/' + id);
   }
 }

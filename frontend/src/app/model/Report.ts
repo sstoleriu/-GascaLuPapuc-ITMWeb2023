@@ -7,4 +7,5 @@ export interface Report {
     resolveDate: string
     isResolve: boolean
     isAnon: boolean
+    base64ph: string
 }

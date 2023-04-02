@@ -30,6 +30,7 @@ import { ReportDialogComponent } from './pages/reports/report-dialog/report-dial
 import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import {GMapModule} from 'primeng/gmap';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     TabMenuModule,
     ToastModule,
     DynamicDialogModule,
-    InputTextareaModule
+    InputTextareaModule,
+    GMapModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
