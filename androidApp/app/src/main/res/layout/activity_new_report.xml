@@ -74,6 +74,7 @@
         android:src="@drawable/ic_baseline_insert_photo_24"
         android:layout_width="wrap_content" />
 
+
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
@@ -172,32 +173,64 @@
         android:textColorHint="@color/greenColor2"
         />
 
-    <EditText
-        android:id="@+id/impact"
+
+    <TextView
+        android:id="@+id/impactText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weight"
+        android:layout_below="@id/weight"
         android:layout_marginStart="20sp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="casual"
         android:background="#80ffffff"
         android:drawableStart="@drawable/ic_baseline_crisis_alert_24"
+        android:text="Impact (HIGH? MODERATE? or LOW? )"
         android:drawablePadding="20sp"
-        android:hint="@string/impact_ex_it_has_an_awful_smell"
         android:padding="10sp"
         android:textSize="15sp"
         android:scaleType="fitCenter"
-        android:textColor="@color/greenColor2"
-        android:textColorHint="@color/greenColor2"
-        />
+        android:textColor="@color/greenColor2" />
+
+    <RadioButton
+        android:id="@+id/moderate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/high"
+        android:text="Moderate"
+        android:textSize="15sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="40dp" />
+
+    <RadioButton
+        android:id="@+id/low"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/moderate"
+        android:text="Low"
+        android:textSize="15sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="40dp" />
+
+    <RadioButton
+        android:id="@+id/high"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/impactText"
+        android:text="High"
+        android:textSize="15sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="40dp" />
 
     <RadioButton
         android:id="@+id/anonymous"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@id/impact"
+        android:layout_below="@id/low"
         android:text="@string/report_as_an_anonymous_user"
         android:layout_marginTop="2dp"
         android:layout_marginStart="10dp"

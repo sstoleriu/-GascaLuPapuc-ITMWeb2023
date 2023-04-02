@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ecoshare.Models.Register;
+import com.app.ecoshare.Models.RegisterResponse;
+import com.app.ecoshare.MyApplication;
 import com.app.ecoshare.R;
 import com.app.ecoshare.Retrofit.Api;
 import com.app.ecoshare.Retrofit.RetrofitClient;
@@ -28,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
     TextView firstname, lastname, email, password, phoneNumber;
     MaterialButton signUpBtn;
     ProgressBar loading;
-
+    MyApplication application = new MyApplication();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,26 +48,40 @@ public class SignUpActivity extends AppCompatActivity {
             loading.setVisibility(View.VISIBLE);
             if (validateEmail() && validateLastName() && validateFirstName() && validatePassword() && validatePhoneNumber()) {
                 Api api = RetrofitClient.getRetrofitSIGNINInstance().create(Api.class);
+                Api api1 = RetrofitClient.getRetrofitEcoInstance().create(Api.class);
                 Register dataRegister = new Register(firstname.getText().toString(), lastname.getText().toString()
                         , email.getText().toString(), password.getText().toString(), phoneNumber.getText().toString());
-                Call<Register> call = api.register(dataRegister);
-                call.enqueue(new Callback<Register>() {
+                Call<RegisterResponse> call = api.register(dataRegister);
+                call.enqueue(new Callback<RegisterResponse>() {
                     @Override
-                    public void onResponse(Call<Register> call, Response<Register> response) {
+                    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                         loading.setVisibility(View.GONE);
                         Toast.makeText(SignUpActivity.this, "The register was successful!", Toast.LENGTH_LONG).show();
                         Log.i("Response", response.toString());
-                        Intent intent = new Intent(SignUpActivity.this, UserReportsActivity.class);
+                        Call<Void> call1 = api1.function("Bearer " + response.body().getToken());
+                        call1.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                Log.i("YUHUUUU", response.toString());
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.i("SO SAD", response.toString());
+                            }
+                        });
+                        Intent intent = new Intent(SignUpActivity.this, FirstPageActivity.class);
                         startActivity(intent);
                     }
 
                     @Override
-                    public void onFailure(Call<Register> call, Throwable t) {
+                    public void onFailure(Call<RegisterResponse> call, Throwable t) {
                         loading.setVisibility(View.GONE);
                         Toast.makeText(SignUpActivity.this, "ERROR!" + t, Toast.LENGTH_SHORT).show();
                         Log.e("ErrorSignIn", t.toString());
                     }
                 });
+
             } else {
                 Toast.makeText(SignUpActivity.this, "Please make sure the values you entered are correct!", Toast.LENGTH_LONG).show();
             }

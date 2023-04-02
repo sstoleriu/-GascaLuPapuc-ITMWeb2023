@@ -9,16 +9,12 @@ public class RetrofitClient {
 
 
     public static Retrofit getRetrofitSIGNINInstance() {
-        if (retrofit == null) {
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL_AUTH).addConverterFactory(GsonConverterFactory.create()).build();
-        }
         return retrofit;
     }
 
     public static Retrofit getRetrofitEcoInstance() {
-        if (retrofit == null) {
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL_ECO).addConverterFactory(GsonConverterFactory.create()).build();
-        }
         return retrofit;
     }
 
