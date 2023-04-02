@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ro.gascalupapuc.EcoShare.model.Role;
 import ro.gascalupapuc.EcoShare.model.dto.UserDTO;
+import ro.gascalupapuc.EcoShare.rest.repository.ReportRepository;
 import ro.gascalupapuc.EcoShare.rest.repository.UserRepository;
 import ro.gascalupapuc.EcoShare.rest.service.OperatorService;
 import ro.gascalupapuc.EcoShare.rest.service.UserService;
@@ -30,6 +31,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final OperatorService operatorService;
 
     private final UserRepository userRepository;
+
+    private final ReportRepository reportRepository;
 
     @Override
     protected void doFilterInternal(
@@ -67,8 +70,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-
-                if(userRepository.findByEmail(userEmail).isEmpty()){
+                Integer userId = jwtService.getId(jwtToken);
+                if(userRepository.findByEmail(userEmail).isEmpty() && reportRepository.findById(userId).isEmpty()){
                     UserDTO userDTO = jwtService.extractUserDTO(jwtToken);
                     if(!userDTO.getRole().equals(Role.OPERATOR)){
                         userService.createUser(userDTO);

@@ -2,6 +2,7 @@ package ro.gascalupapuc.EcoShare.rest.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ro.gascalupapuc.EcoShare.model.*;
 import ro.gascalupapuc.EcoShare.model.dto.ReportDTO;
@@ -13,7 +14,6 @@ import ro.gascalupapuc.EcoShare.rest.repository.OperatorRepository;
 import ro.gascalupapuc.EcoShare.rest.repository.ReportRepository;
 import ro.gascalupapuc.EcoShare.rest.repository.UserRepository;
 
-import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ReportService {
 
     private final ReportRepository reportRepository;
@@ -72,11 +73,10 @@ public class ReportService {
                 .findFirst()
                 .get();
 
-        listOfReport.add(report);
+        Report reportDB = reportRepository.save(report);
+        listOfReport.add(reportDB);
         operator.setListOfReports(listOfReport);
-
-        reportRepository.save(report);
-
+        operatorRepository.save(operator);
         return OperatorService.mapEntityToResponseDTO(operator);
     }
 
@@ -103,6 +103,7 @@ public class ReportService {
         report.setResolveDate(LocalDateTime.now());
         reportRepository.save(report);
         operator.getListOfReports().remove(report);
+        log.info("s-a rezolvat");
         return mapEntityToResponseDTO(report);
     }
 

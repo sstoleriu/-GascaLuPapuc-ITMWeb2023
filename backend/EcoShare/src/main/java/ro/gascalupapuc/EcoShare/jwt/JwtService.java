@@ -33,6 +33,11 @@ public class JwtService {
         return  List.of(new SimpleGrantedAuthority(String.valueOf(claims.get("Authorities")).replace("[","").replace("]","")));
     }
 
+    public Integer getId(String token) {
+        Claims claims = extractAllClaims(token);
+        return  Integer.valueOf(String.valueOf(claims.get("id")));
+    }
+
     public UserDTO extractUserDTO(String token){
         Claims claims = extractAllClaims(token);
         return UserDTO.builder()
