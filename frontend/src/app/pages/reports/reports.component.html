@@ -1,0 +1,68 @@
+<div class="grid grid-nogutter">
+    <div class="col-12 p-2 px-3 flex align-items-center bg-white header-shadow">
+        <span class="pi pi-image text-white" style="font-size: 2.5rem"></span>
+        <h2 class="px-1 my-0" style="color: #3be93e; font-size: 2rem">EcoShare</h2>
+        <div class="flex flex-grow-1">
+
+        </div>
+        <button #btn type="button" pButton icon="pi pi-bars" (click)="menu.toggle($event)" class="align-self-end"></button>
+        <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+    </div>
+
+    <div class="col-12 mt-5 flex justify-content-center">
+        <div class="col-10">
+            
+            <div class="col-12">
+                <h1 class="m-0 text-white">My Reports</h1>
+            </div>
+            <div class="col-12">
+                <div id="map">
+
+                </div>
+            </div>
+            <div class="col-12 p-1 mt-2 bg-white border-round">
+                <p-tabMenu [model]="tabMenuItems" [activeItem]="activeItem"></p-tabMenu>
+                <p-table [value]="raports" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="4">
+                    <ng-template pTemplate="header" >
+                        <tr>
+                            <th>Type</th>
+                            <th>Impact</th>
+                            <th>Submit time</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                        
+                    </ng-template>
+                    <ng-template pTemplate="body" let-raport>
+                        <tr>
+                            <td>
+                                <p-avatar *ngIf="!raport.isAnon" image="assets/img/common_user.png" styleClass="mr-2" shape="circle"></p-avatar>
+                                <p-avatar *ngIf="raport.isAnon" image="assets/img/incognito.png" styleClass="mr-2" shape="circle"></p-avatar>
+                            </td>
+                            <td>
+                                {{raport?.characteristicsDTO?.impact}}
+                            </td>
+                            <td>
+                                {{raport?.createDate}}
+                            </td>
+                            <td>
+                                {{raport.category}}
+                            </td>
+                            <td>{{ raport.description }}</td>
+                            <td><p-tag >{{ getName(raport.isResolve) }}</p-tag></td>
+                            <td>
+                                <p-toast></p-toast>
+                                <p-button icon="pi pi-eye" (click)="openReportDialog(raport)" label="View"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" id="login-form" class="border-round-md w-full">
+    <div class="formgrid grid">
+        <div class="field col-12">
+            Description
+            <textarea pInputTextarea [disabled]="true" [value]="report?.description" class="w-full"></textarea>
+        </div>
+        <div class="field col-6">
+            Submit date
+            <input pInputText [value]="report?.createDate" [disabled]="true" class="w-full"/>
+        </div>
+        
+        <div class="field col-6">
+            Resolved date
+            <input pInputText [value]="report?.resolveDate" [disabled]="true" class="w-full"/>
+        </div>
+        <div class="field col-12">
+            Categories
+            <input pInputText [value]="report?.characteristicsDTO" [disabled]="true" class="w-full"/>
+        </div>
+
+        <div>
+            <p-image src="data:image/png;base64, {{report?.base64ph}}" alt="Image" width="100" [preview]="true"></p-image> 
+        </div>
+       
+        <div class="field col-12 flex m-0 justify-content-end">
+            <button pButton icon="pi pi-check" class="p-button-success" (click)="resolve()">Mark solved</button>
+        </div>
+    </div>
+</form>

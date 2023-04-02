@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Custom
 import { AppRoutingModule } from './app-routing.module';
@@ -15,13 +17,33 @@ import { AnimateModule } from 'primeng/animate';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { MessagesModule } from 'primeng/messages';
+import { AuthInterceptor } from './interceptors/AuthInterceptor';
+import { ReportsComponent } from './pages/reports/reports.component';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TableModule } from 'primeng/table';
+import { AvatarModule } from 'primeng/avatar';
+import { DropdownModule } from 'primeng/dropdown';
+import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ReportDialogComponent } from './pages/reports/report-dialog/report-dialog.component';
+import { ToastModule } from 'primeng/toast';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { OperatorsComponent } from './pages/operators/operators.component'
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ReportsComponent,
+    ReportDialogComponent,
+    OperatorsComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -30,9 +52,23 @@ import { MessagesModule } from 'primeng/messages';
     AnimateModule,
     InputTextModule,
     PasswordModule,
-    MessagesModule
+    MessagesModule,
+    TieredMenuModule,
+    TableModule,
+    AvatarModule,
+    DropdownModule,
+    TagModule,
+    TooltipModule,
+    TabMenuModule,
+    ToastModule,
+    DynamicDialogModule,
+    InputTextareaModule,
+    GoogleMapsModule,
+    ImageModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
