@@ -1,0 +1,27 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" id="login-form" class="border-round-md w-full">
+    <div class="formgrid grid">
+        <div class="field col-12">
+            Description
+            <textarea pInputTextarea [disabled]="true" [value]="report?.description" class="w-full"></textarea>
+        </div>
+        <div class="field col-6">
+            Submit date
+            <input pInputText [value]="report?.createDate" [disabled]="true" class="w-full"/>
+        </div>
+        <div class="field col-6">
+            Resolved date
+            <input pInputText [value]="report?.resolveDate" [disabled]="true" class="w-full"/>
+        </div>
+        <div class="field col-12">
+            Categories
+            <input pInputText [value]="report?.listCategoryOfObject" [disabled]="true" class="w-full"/>
+        </div>
+        <div class="field col-12">
+            Characteristics
+            <input pInputText [value]="report?.listOfCharacteristics" [disabled]="true" class="w-full"/>
+        </div>
+        <div class="field col-12 flex m-0 justify-content-end">
+            <button pButton icon="" class="p-button-success justify-content-center">Marchează ca rezolvat</button>
+        </div>
+    </div>
+</form>

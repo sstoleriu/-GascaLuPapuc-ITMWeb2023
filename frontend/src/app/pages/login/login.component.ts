@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
-import { UserService } from 'src/app/services/user.service';
+import { TokenDTO, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   providers: [MessageService]
 })
 export class LoginComponent {
-  constructor(private messageService: MessageService, private userService: UserService) {}
+  constructor(private messageService: MessageService, private userService: UserService, private router: Router) {}
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -30,9 +31,16 @@ export class LoginComponent {
     if (this.loginForm.valid && this.email?.value && this.password?.value) {
       console.log('Register payload: ', this.loginForm.value);
       
-      this.userService.login(this.email.value, this.password.value)
+      this.userService.login(this.email.value, this.password.value).subscribe({
+        next: (data: TokenDTO) => {
+          localStorage.setItem("JWT", data.token);
+          this.userService.loadJWT();
+          this.router.navigate(['reports'])
+        },
+        error: (e) => this.messageService.add({severity: 'error', summary: e}),
+        complete: () => console.info('login complete') 
+    });
 
-      this.messageService.add({severity: 'error', summary: 'A aparut o eroare'})
     }
   }
 }

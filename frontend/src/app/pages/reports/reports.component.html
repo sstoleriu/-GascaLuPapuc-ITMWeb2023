@@ -1,0 +1,73 @@
+<div class="grid grid-nogutter">
+    <div class="col-12 p-2 px-3 flex align-items-center bg-white header-shadow">
+        <span class="pi pi-image text-white" style="font-size: 2.5rem"></span>
+        <span class="px-1">EcoShare</span>
+        <div class="flex flex-grow-1">
+
+        </div>
+        <button #btn type="button" pButton icon="pi pi-bars" (click)="menu.toggle($event)" class="align-self-end"></button>
+        <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+    </div>
+
+    <div class="col-12 mt-5 flex justify-content-center">
+        <div class="col-10">
+            
+            <div class="col-12">
+                <h1 class="m-0 text-white">My Reports</h1>
+            </div>
+            <div class="col-12 p-1 mt-2 bg-white border-round">
+                <p-tabMenu [model]="tabMenuItems" [activeItem]="activeItem"></p-tabMenu>
+                <p-table [value]="raports" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" >
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr>
+                            <th>
+                                
+                            </th>
+                            <th>
+                                miau
+                            </th>
+                            <th>
+                                <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                            </th>
+                            <th>
+                                <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                        <p-dropdown [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                                            <ng-template let-option pTemplate="item">
+                                                <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
+                                            </ng-template>
+                                        </p-dropdown>
+                                    </ng-template>
+                                </p-columnFilter>
+                            </th>
+                            <th></th>
+                        </tr>
+                        
+                    </ng-template>
+                    <ng-template pTemplate="body" let-raport>
+                        <tr>
+                            <td>
+                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" styleClass="mr-2" shape="circle"></p-avatar></td>
+                            <td>{{ raport.description }}</td>
+                            <td>{{ raport.listCategoryOfObject }}</td>
+                            <td><p-tag>{{raport.isResolve}}</p-tag></td>
+                            <td>
+                                <p-toast></p-toast>
+                                <p-button icon="pi pi-eye" (click)="openReportDialog(raport)" label="View"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>

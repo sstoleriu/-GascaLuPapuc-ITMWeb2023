@@ -1,4 +1,4 @@
-export class JWT {
+export class JWTPayload {
     id?: number;
     exp?: number;
     firstname?: string;

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable,  } from '@angular/core';
-import { JWT } from '../model/JWT';
+import { JWTPayload } from '../model/JWTPayload';
 
 
 
@@ -10,53 +10,52 @@ export interface TokenDTO {token: string}
   providedIn: 'root'
 })
 export class UserService {
-  roles!: string[]
-  expirationTime?: number
-  jwt?: JWT = undefined
+  jwtPayload?: JWTPayload = undefined
+  isLoggedIn = false;
 
   constructor(private http: HttpClient) {
     this.loadJWT()
   }
 
-  login(email:string, password:string ) {
+  login(email:string, password:string) {
     return this.http.post<TokenDTO>('http://192.168.1.149:8081/api/v1/auth/login', {email, password})
-      .subscribe({
-        next: (data: TokenDTO) => {
-          localStorage.setItem("JWT", data.token);
-        },
-        error: (e) => console.error(e),
-        complete: () => console.info('login complete') 
-    });
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    this.jwtPayload = undefined;
+    
+    localStorage.removeItem("JWT");
   }
 
   loadJWT() {
+    var JWTString = localStorage.getItem("JWT")
+
+    if (JWTString == null)
+      return;
+
     var payloadBase64String = localStorage.getItem("JWT")?.split(".")[1];
+
     if (payloadBase64String == undefined)
       return;
 
-    var payload = JSON.parse(this.b64_to_utf8(payloadBase64String))
+    try {
+      var payload = JSON.parse(this.b64_to_utf8(payloadBase64String))
 
-    this.jwt = new JWT(payload)
+      this.jwtPayload = new JWTPayload(payload)
 
-    console.log(this.jwt)
+      this.isLoggedIn = true;
+    } catch(e) {console.error(e); console.log("JWT Invalid")}
 
-    return true;
-  }
-
-  isLoggedIn(): boolean {
-    return true;
+    console.log("JWT:", this.jwtPayload)
   }
 
   hasRole(role: string) {
-    return this.roles.indexOf(role) != -1;
+    return this.jwtPayload?.roles?.indexOf(role) != -1;
   }
 
   b64_to_utf8(token: string) {
     return decodeURIComponent(window.atob(token));
-  }
-
-  logOut() {
-    localStorage.removeItem("JWT");
   }
 
 }
